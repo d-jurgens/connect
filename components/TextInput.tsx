@@ -18,8 +18,8 @@ const InputField = (props: {
 				type={props.type}
 				id={props.name}
 				name={props.name}
-				className={`border w-full rounded-md border-gray-300 outline-0 py-1 px-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
-					props.errorText && 'border-red-700'
+				className={`border w-full rounded-md outline-0 py-1 px-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
+					props.errorText ? 'border-red-700' : 'border-gray-300'
 				}`}
 			/>
 			{props.errorText && (
