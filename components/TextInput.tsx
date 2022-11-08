@@ -1,30 +1,82 @@
+import { useState } from 'react';
+import { Transition } from '@headlessui/react';
+import { Eye, EyeSlash } from 'phosphor-react';
+
 const InputField = (props: {
 	name: string;
 	type: 'email' | 'password' | 'text';
 	label: string;
-	errorText?: string;
+	placeholder?: string;
+	value: any;
+	onChange?: any;
+	onBlur?: any;
+	disabled?: boolean;
+	hasError: boolean;
+	errorText?: string | null;
 }) => {
+	const [inputType, setInputType] = useState(props.type);
+
 	return (
-		<div className='mb-4'>
+		<div className='mb-5 relative'>
 			<label
 				htmlFor={props.name}
-				className={`block text-sm font-bold ${
+				className={`block text-sm transition-colors ${
 					props.errorText && 'text-red-700'
 				}`}
 			>
 				{props.label}
 			</label>
 			<input
-				type={props.type}
+				value={props.value}
+				type={inputType}
 				id={props.name}
 				name={props.name}
-				className={`border w-full rounded-md outline-0 py-1 px-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${
-					props.errorText ? 'border-red-700' : 'border-gray-300'
-				}`}
+				disabled={props.disabled}
+				placeholder={props.placeholder}
+				onChange={props.onChange}
+				onBlur={props.onBlur}
+				className={`border w-full rounded-md outline-0 py-1 px-2 transition-colors ${
+					props.errorText
+						? 'border-red-700 focus:ring-1 focus:ring-red-700'
+						: 'border-slate-300 focus:border-teal-600 focus:ring-1 focus:ring-teal-600'
+				}
+                ${props.type === 'password' && 'pr-8'}`}
 			/>
-			{props.errorText && (
-				<span className='text-sm text-red-700'>{props.errorText}</span>
+			{props.type === 'password' && (
+				<>
+					{inputType === 'password' && (
+						<Eye
+							size='18'
+							className='absolute top-7 right-3 hover:cursor-pointer'
+							onClick={() => {
+								setInputType('text');
+							}}
+						/>
+					)}
+
+					{inputType === 'text' && (
+						<EyeSlash
+							size='18'
+							className='absolute top-7 right-3 hover:cursor-pointer'
+							onClick={() => {
+								setInputType('password');
+							}}
+						/>
+					)}
+				</>
 			)}
+
+			<Transition
+				show={props.hasError}
+				enter='transition-opacity duration-75'
+				enterFrom='opacity-0'
+				enterTo='opacity-100'
+				leave='transition-opacity duration-150'
+				leaveFrom='opacity-100'
+				leaveTo='opacity-0'
+			>
+				<p className='text-xs text-red-700 absolute'>{props.errorText}</p>
+			</Transition>
 		</div>
 	);
 };
