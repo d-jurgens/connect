@@ -11,7 +11,6 @@ const InputField = (props: {
 	onChange?: any;
 	onBlur?: any;
 	disabled?: boolean;
-	hasError: boolean;
 	errorText?: string | null;
 }) => {
 	const [inputType, setInputType] = useState(props.type);
@@ -40,6 +39,7 @@ const InputField = (props: {
 						? 'border-red-700 focus:ring-1 focus:ring-red-700'
 						: 'border-slate-300 focus:border-teal-600 focus:ring-1 focus:ring-teal-600'
 				}
+                    ${props.disabled && 'hover:cursor-not-allowed'}
                 ${props.type === 'password' && 'pr-8'}`}
 			/>
 			{props.type === 'password' && (
@@ -67,7 +67,7 @@ const InputField = (props: {
 			)}
 
 			<Transition
-				show={props.hasError}
+				show={props.errorText ? true : false}
 				enter='transition-opacity duration-75'
 				enterFrom='opacity-0'
 				enterTo='opacity-100'

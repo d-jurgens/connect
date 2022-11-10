@@ -1,10 +1,10 @@
 import Head from 'next/head';
 
-export default function HomePage() {
+export default function CreateAccountPage() {
 	return (
 		<>
 			<Head>
-				<title>Connect</title>
+				<title>Create account | Connect</title>
 				<meta name='description' content='A simple messaging app' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
@@ -12,7 +12,7 @@ export default function HomePage() {
 				<span>navigation</span>
 			</nav>
 			<main className='container mx-auto'>
-				<h1 className='text-5xl'>Connect</h1>
+				<h1 className='text-5xl'>Create account</h1>
 			</main>
 
 			<footer className='container mx-auto'>
